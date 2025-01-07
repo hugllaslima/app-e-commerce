@@ -1,6 +1,6 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-const app = require('../server'); // Path to your server.js file
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../server.js'; // Ensure you add .js for ESM imports
 
 chai.use(chaiHttp);
 const { expect } = chai;
