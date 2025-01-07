@@ -2,7 +2,9 @@ import express from 'express';
 
 const app = express();
 
-// Middleware and routes go here
+// Define the root route
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the API!' });
+});
 
-// Export the app for testing
 export default app;
