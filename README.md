@@ -19,7 +19,8 @@ Task 3: Backend API Setup
 - In the 'api' directory, I set up a simple Node.js/Express application that handles basic e-commerce operations like product listings, user accounts, and order processing.
 - Here is the code for the Backend:
 
-```// Backend: Node.js with Express
+```
+// Backend: Node.js with Express
 // Filename: backend/server.js
 
 const express = require('express');
@@ -74,9 +75,9 @@ app.post('/api/orders', (req, res) => {
 // Start the server
 app.listen(PORT, () => {
   console.log(`Backend server is running on http://localhost:${PORT}`);
-});```
+});
+```
   
-
 Task 4: Frontend Web Application setup
 - In the 'webapp' directory i created a simple React application that interacts with the backend API.
 - I ensured that the frontend has basic features like product listing, user login, and order placement.
@@ -130,7 +131,6 @@ function App() {
   return (
     <div>
       <h1>E-Commerce App</h1>
-
       {!loggedIn ? (
         <div>
           <h2>Login</h2>
