@@ -32,10 +32,6 @@ jobs:
           cd Backend
           npm test
 
-      - name: Build application
-        run: |
-          cd Backend
-          npm run build
 
   frontend:
     name: Frontend CI/CD
