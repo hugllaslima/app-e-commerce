@@ -1,5 +1,5 @@
 // Frontend: React App
-// Filename: frontend/src/App.js
+// Filename: frontend/src/Webapp.js
 
 import React, { useState, useEffect } from 'react';
 
