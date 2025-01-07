@@ -7,21 +7,21 @@ I am tasked with developing and maintaining an e-commerce platform. This platfor
 The goal is to automate the integration and deployment process for both components using GitHub Actions, ensuring continous delivery and integration.
 Project Tasks:
 
-Task 1: Project Setup
+***Task 1: Project Setup***
 - I created a new GitHub repository named 'E-commerce-Application-CI-CD-Pipeline'.
 - Inside the repository, I created two directories: 'api' for backend and 'webapp' for frontend.
 
-Task 2: Initialize GitHub Actions
+***Task 2: Initialize GitHub Actions***
 - I initialized the Git repository and added the initial project structure.
 - I created a '.github/workflows' directory in the repository for GitHub Actions.
 
-Task 3: Backend API Setup
+***Task 3: Backend API Setup***
 - In the 'api' directory, I set up a simple Node.js/Express application that handles basic e-commerce operations like product listings, user accounts, and order processing.
 - Here is the code for the Backend:
 
 ```
 // Backend: Node.js with Express
-// Filename: backend/server.js
+// Filename: backend/API.js
 
 const express = require('express');
 const app = express();
@@ -78,14 +78,14 @@ app.listen(PORT, () => {
 });
 ```
   
-Task 4: Frontend Web Application setup
+***Task 4: Frontend Web Application setup***
 - In the 'webapp' directory i created a simple React application that interacts with the backend API.
 - I ensured that the frontend has basic features like product listing, user login, and order placement.
 - Here is the React code for the frontend:
 
 ```
 // Frontend: React App
-// Filename: frontend/src/App.js
+// Filename: frontend/src/Webapp.js
 
 import React, { useState, useEffect } from 'react';
 
@@ -168,4 +168,80 @@ function App() {
 }
 
 export default App;
+```
+
+***Task 5: Continuous Integration workflow***
+- I wrote a GitHub Actions workflow for the backend and frontend that:
+   - Installed dependencies.
+   - Ran tests.
+   - Builds the application.
+- Here is the GitHub Action Workflow
+
+```
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Backend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run tests
+        run: |
+          cd backend
+          npm test
+
+      - name: Build application
+        run: |
+          cd backend
+          npm run build
+
+  frontend:
+    name: Frontend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test
+
+      - name: Build application
+        run: |
+          cd frontend
+          npm run build
 ```
