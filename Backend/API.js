@@ -1,6 +1,6 @@
 
 // Backend: Node.js with Express
-// Filename: backend/server.js
+// Filename: backend/API.js
 
 const express = require('express');
 const app = express();
