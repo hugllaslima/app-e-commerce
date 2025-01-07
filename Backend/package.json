@@ -1,0 +1,17 @@
+{
+  "name": "ecommerce-backend",
+  "version": "1.0.0",
+  "description": "Backend for the E-Commerce Application",
+  "main": "API.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"No tests specified\" && exit 0",
+    "build": "echo \"Nothing to build for backend\""
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {},
+  "author": "Your Name",
+  "license": "MIT"
+}
