@@ -24,17 +24,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd backend
+          cd Backend
           npm install
 
       - name: Run tests
         run: |
-          cd backend
+          cd Backend
           npm test
 
       - name: Build application
         run: |
-          cd backend
+          cd Backend
           npm run build
 
   frontend:
@@ -52,15 +52,15 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd frontend
+          cd Frontend
           npm install
 
       - name: Run tests
         run: |
-          cd frontend
+          cd Frontend
           npm test
 
       - name: Build application
         run: |
-          cd frontend
+          cd Frontend
           npm run build
