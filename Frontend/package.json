@@ -2,7 +2,7 @@
   "name": "ecommerce-frontend",
   "version": "1.0.0",
   "description": "Frontend for the E-Commerce Application",
-  "main": "Frontend/Webapp.js",
+  "main": "src/Webapp.js",
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
