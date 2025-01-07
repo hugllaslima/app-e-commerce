@@ -26,6 +26,7 @@ jobs:
         run: |
           cd Backend
           npm install mocha chai supertest --save-dev
+          npm install chai chai-http --save-dev
 
       - name: Run tests
         run: |
