@@ -215,8 +215,7 @@ root.render(
 - I created a 'public' folder where I added an index.html file for the frontend.
 - Here is the index.html file:
   
-  ```
-  <!DOCTYPE html>
+  ```<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -250,13 +249,11 @@ root.render(
         </ul>
       </section>
     </main>
-
     <footer>
       <p>&copy; 2025 Simple E-Commerce Store</p>
     </footer>
   </body>
 </html>
-
 ```
 
 ***Task 5: Continuous Integration workflow***
