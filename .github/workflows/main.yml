@@ -40,7 +40,7 @@ jobs:
           docker build -t backend -f Backend/Dockerfile .
 
       - name: Tag Docker image for backend
-        run: docker tag backend username/backend
+        run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
           
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -50,7 +50,7 @@ jobs:
           
       - name: Push Backend Docker image
         run: |
-          docker push username/backend
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
 
   frontend:
     name: Frontend CI/CD
@@ -88,7 +88,7 @@ jobs:
           docker build -t frontend -f Frontend/Dockerfile .
 
       - name: Tag Docker image for frontend
-        run: docker tag frontend username/frontend    
+        run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -98,4 +98,4 @@ jobs:
           
       - name: Push Frontend Docker image
         run: |
-          docker push username/frontend
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
