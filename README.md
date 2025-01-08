@@ -454,7 +454,8 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
       ```
- ***Deploy to cloud***
+
+***Deploy to cloud***
 - I want to now deploy the containers built from the Github actions to AWS cloud.
 - To do this I logged in to my AWS account an IAM user with the permissions for ECR, ECS, and Cloud Formation.
 - I got the AWS_ACCESS_KEY_ID, AWS_SECREST_ACCESS_KEY, AWS_REGION and AWS_ACCOUNTID and stored it in Github secrets.
@@ -464,7 +465,7 @@ jobs:
 - I modified the Githhub action file to use the Dockerfile to build a container and push it to AWS ECR.
 - Here is the updated Github Action:
 
-              ```
+          ```
           name: Build and Push Docker Images to ECR
           on:
             push:
@@ -535,13 +536,16 @@ jobs:
                     docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION}}.amazonaws.com/frontend:latest
           
                ```
-    ***Task 8: Continous Deployment***
+
+***Task 8: Continous Deployment***
 - The Github Action has been configured to deploy updates automatically to the AWS ECR whenever there is a push and pullrequest to the 'main' branch of the repo.
 
-    ***Task 9: Performance and Security***
+
+***Task 9: Performance and Security***
 - To optimize the workflows and reduce build times, I implemented 'Docker layer caching' and dependency 'caching'.
 - I also ensured that no credentials are hard coded. All credentials used were stored in 'Github secrets'.
 - Here is the optimized workflow with Caching:
+
 Backend Job with Caching
 
       ```
@@ -638,5 +642,6 @@ Backend Job with Caching
 
           ```
 
-     ***Task 10: Project Documentation***
+
+***Task 10: Project Documentation***
 - Finally, I have used this 'README.md' file to document the project setup, workflow details, and instructions.
