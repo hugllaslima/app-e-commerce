@@ -37,7 +37,7 @@ jobs:
 
       - name: Build Backend Docker image
         run: |
-          docker build -t backend_latest -f ./Backend/Dockerfile ./Backend
+          docker build -t backend_latest -f Backend/Dockerfile .
 
       - name: Tag Docker image for backend
         run: docker tag backend_latest username/backend_latest
@@ -85,7 +85,7 @@ jobs:
 
       - name: Build Frontend Docker image
         run: |
-          docker build -t frontend_latest -f ./Frontend/Dockerfile ./Frontend
+          docker build -t frontend_latest -f Frontend/Dockerfile .
 
       - name: Tag Docker image for frontend
         run: docker tag frontend_latest username/frontend_latest    
