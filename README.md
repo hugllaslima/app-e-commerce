@@ -352,7 +352,7 @@ jobs:
   - Here is the updated Github action file:
        
 ```       
-    name: CI/CD Workflow
+name: CI/CD Workflow
 on:
   push:
     branches:
@@ -459,4 +459,67 @@ jobs:
 - I got the AWS_ACCESS_KEY_ID, AWS_SECREST_ACCESS_KEY, AWS_REGION and AWS_ACCOUNTID and stored it in Github secrets.
 - I went to 'Amazon ECR' and created two repositories 'backend' and 'frontend'.
 - I defined the services within the cluster.
--  I created task definition files for both the backend and frontend.        
+- I created task definition files for both the backend and frontend.
+- I modified the Githhub action file to use the Dockerfile to build a container and push it to AWS ECR.
+- Here is the updated Github Action:
+
+    ```
+     name: Build and Push Docker Images to ECR
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Build and Push Backend Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Backend Docker Image
+        run: |
+          docker build -t backend -f Backend/Dockerfile .
+
+      - name: Tag Backend Docker Image
+        run: |
+          docker tag backend:latest <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/backend:latest
+
+      - name: Push Backend Docker Image
+        run: |
+          docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/backend:latest
+
+  frontend:
+    name: Build and Push Frontend Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t frontend -f Frontend/Dockerfile .
+
+      - name: Tag Frontend Docker Image
+        run: |
+          docker tag frontend:latest <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/frontend:latest
+
+      - name: Push Frontend Docker Image
+        run: |
+          docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/frontend:latest
+
+     ```         
