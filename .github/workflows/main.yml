@@ -1,5 +1,4 @@
-name: CI/CD Workflow
-
+   name: Build and Push Docker Images to ECR
 on:
   push:
     branches:
@@ -10,92 +9,49 @@ on:
 
 jobs:
   backend:
-    name: Backend CI/CD
+    name: Build and Push Backend Docker Image
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Install dependencies
-        run: |
-          cd Backend
-          npm install 
-
-      - name: Run tests
-        run: |
-          cd Backend
-          npm test
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Backend Docker image
+      - name: Build Backend Docker Image
         run: |
           docker build -t backend -f Backend/Dockerfile .
 
-      - name: Tag Docker image for backend
-        run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
-          
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          
-      - name: Push Backend Docker image
+      - name: Tag Backend Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
+          docker tag backend:latest <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/backend:latest
+
+      - name: Push Backend Docker Image
+        run: |
+          docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/backend:latest
 
   frontend:
-    name: Frontend CI/CD
+    name: Build and Push Frontend Docker Image
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Install dependencies
-        run: |
-          cd Frontend
-          npm install
-
-      - name: Run tests
-        run: |
-          cd Frontend
-          npm test -- --ci --silent
-
-      - name: Build application
-        run: |
-          cd Frontend
-          npm run build
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Frontend Docker image
+      - name: Build Frontend Docker Image
         run: |
           docker build -t frontend -f Frontend/Dockerfile .
 
-      - name: Tag Docker image for frontend
-        run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          
-      - name: Push Frontend Docker image
+      - name: Tag Frontend Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
+          docker tag frontend:latest <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/frontend:latest
+
+      - name: Push Frontend Docker Image
+        run: |
+          docker push <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/frontend:latest
