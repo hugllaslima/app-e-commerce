@@ -228,7 +228,6 @@ root.render(
     <header>
       <h1>Simple E-Commerce Store</h1>
     </header>
-
     <main>
       <section>
         <h2>Products</h2>
@@ -257,7 +256,9 @@ root.render(
     </footer>
   </body>
 </html>
+
 ```
+
 ***Task 5: Continuous Integration workflow***
 - I wrote a GitHub Actions workflow for the backend and frontend that:
    - Installed dependencies.
