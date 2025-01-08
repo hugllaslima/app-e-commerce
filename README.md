@@ -351,7 +351,7 @@ jobs:
      - I added my username and Dockehub security token to 'secrets' and referenced the secrets in the Github action to enable Github login to Dockerhub without hardcoding credentials into the code.
      - Here is the updated Github action file:
        
-       ```
+       
         name: CI/CD Workflow
 
 on:
@@ -453,5 +453,5 @@ jobs:
       - name: Push Frontend Docker image
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
-       ```
+      
        
