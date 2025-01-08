@@ -453,4 +453,10 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
       ```
-       
+ ***Deploy to cloud***
+- I want to now deploy the containers built from the Github actions to AWS cloud.
+- To do this I logged in to my AWS account an IAM user with the permissions for ECR, ECS, and Cloud Formation.
+- I got the AWS_ACCESS_KEY_ID, AWS_SECREST_ACCESS_KEY, AWS_REGION and AWS_ACCOUNTID and stored it in Github secrets.
+- I went to 'Amazon ECR' and created two repositories 'backend' and 'frontend'.
+- I defined the services within the cluster.
+-  I created task definition files for both the backend and frontend.        
