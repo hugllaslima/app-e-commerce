@@ -456,6 +456,7 @@ jobs:
       ```
 
 ***Deploy to cloud***
+
 - I want to now deploy the containers built from the Github actions to AWS cloud.
 - To do this I logged in to my AWS account an IAM user with the permissions for ECR, ECS, and Cloud Formation.
 - I got the AWS_ACCESS_KEY_ID, AWS_SECREST_ACCESS_KEY, AWS_REGION and AWS_ACCOUNTID and stored it in Github secrets.
@@ -465,7 +466,7 @@ jobs:
 - I modified the Githhub action file to use the Dockerfile to build a container and push it to AWS ECR.
 - Here is the updated Github Action:
 
-```
+              ```
           name: Build and Push Docker Images to ECR
           on:
             push:
@@ -535,7 +536,7 @@ jobs:
                   run: |
                     docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION}}.amazonaws.com/frontend:latest         
           
-```
+               ```
 
 ***Task 8: Continous Deployment***
 - The Github Action has been configured to deploy updates automatically to the AWS ECR whenever there is a push and pullrequest to the 'main' branch of the repo.
@@ -548,7 +549,7 @@ jobs:
 
 Backend Job with Caching
 
-```
+           ```
     backend:
     name: Build and Push Backend Docker Image
     runs-on: ubuntu-latest
@@ -592,12 +593,12 @@ Backend Job with Caching
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
 
-```
+           ```
 
    Frontend Job with Caching
 
-```
-            frontend:
+       ```
+      frontend:
     name: Build and Push Frontend Docker Image
     runs-on: ubuntu-latest
 
@@ -638,8 +639,8 @@ Backend Job with Caching
 
       - name: Push Frontend Docker Image
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest
-```
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest      
+       ```
 
 
 ***Task 10: Project Documentation***
