@@ -28,11 +28,11 @@ jobs:
 
       - name: Tag Backend Docker Image
         run: |
-          docker tag backend:latest ${{ AWS_ACCOUNT_ID }}.dkr.ecr.${{ AWS_REGION }}.amazonaws.com/backend:latest
+          docker tag backend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
 
       - name: Push Backend Docker Image
         run: |
-          docker push ${{ AWS_ACCOUNT_ID }}.dkr.ecr.${{ AWS_REGION }}.amazonaws.com/backend:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
 
   frontend:
     name: Build and Push Frontend Docker Image
@@ -55,8 +55,8 @@ jobs:
 
       - name: Tag Frontend Docker Image
         run: |
-          docker tag frontend:latest ${{ AWS_ACCOUNT_ID }}.dkr.ecr.${{ AWS_REGION }}.amazonaws.com/frontend:latest
+          docker tag frontend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest
 
       - name: Push Frontend Docker Image
         run: |
-          docker push ${{ AWS_ACCOUNT_ID }}.dkr.ecr.${{ AWS_REGION}}.amazonaws.com/frontend:latest
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION}}.amazonaws.com/frontend:latest
