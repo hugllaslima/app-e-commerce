@@ -345,90 +345,12 @@ jobs:
         
         # Expose the port your app will run on
         EXPOSE 3000
-              ```
+      ```
      - I then updated the main.yaml file of the Github action to build Docker images for frontend and backend and push them to DockerHub.
      - I added my username and Dockehub security token to 'secrets' and refrenced the secrets in the Github action to enable Github login to Dockerhub without hardcoding credentials into the code.
      - Here is the updated Github action file:
        
        ```
-           name: CI/CD Workflow
-    on:
-      push:
-        branches:
-          - main
-      pull_request:
-        branches:
-          - main
-    jobs:
-      backend:
-        name: Backend CI/CD
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Setup Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '16'
-          - name: Install dependencies
-            run: |
-              cd Backend
-              npm install 
-          - name: Run tests
-            run: |
-              cd Backend
-              npm test
-          - name: Setup Docker Buildx
-            uses: docker/setup-buildx-action@v2
-          - name: Build Backend Docker image
-            run: |
-              docker build -t backend -f Backend/Dockerfile .
-          - name: Tag Docker image for backend
-            run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
-          - name: Login to Docker Hub
-            uses: docker/login-action@v2
-            with:
-              username: ${{ secrets.DOCKER_HUB_USERNAME }}
-              password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}  
-          - name: Push Backend Docker image
-            run: |
-              docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
-      frontend:
-        name: Frontend CI/CD
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v3
-          - name: Setup Node.js
-            uses: actions/setup-node@v3
-            with:
-              node-version: '16'
-          - name: Install dependencies
-            run: |
-              cd Frontend
-              npm install
-          - name: Run tests
-            run: |
-              cd Frontend
-              npm test -- --ci --silent
-          - name: Build application
-            run: |
-              cd Frontend
-              npm run build
-          - name: Setup Docker Buildx
-            uses: docker/setup-buildx-action@v2
-          - name: Build Frontend Docker image
-            run: |
-              docker build -t frontend -f Frontend/Dockerfile .
-          - name: Tag Docker image for frontend
-            run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
-          - name: Login to Docker Hub
-            uses: docker/login-action@v2
-            with:
-              username: ${{ secrets.DOCKER_HUB_USERNAME }}
-              password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          - name: Push Frontend Docker image
-            run: |
-              docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
+        
        ```
        
