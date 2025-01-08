@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Backend Docker image
         run: |
-          docker build -t your-backend-image-name -f Backend/Dockerfile .
+          docker build -t backend_latest -f Backend/Dockerfile .
 
       - name: Push Backend Docker image
         run: |
@@ -89,7 +89,7 @@ jobs:
 
       - name: Build Frontend Docker image
         run: |
-          docker build -t your-frontend-image-name -f Frontend/Dockerfile .
+          docker build -t frontend_latest -f Frontend/Dockerfile .
 
       - name: Push Frontend Docker image
         run: |
