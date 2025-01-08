@@ -8,6 +8,7 @@ on:
       - main
 env:
   AWS_REGION: <AWS_REGION>
+  AWS_ACCOUNT_ID: <AWS_ACCOUNT_ID>
 
 jobs:
   backend:
