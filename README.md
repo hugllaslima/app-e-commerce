@@ -466,7 +466,7 @@ jobs:
 - I modified the Githhub action file to use the Dockerfile to build a container and push it to AWS ECR.
 - Here is the updated Github Action:
 
-              ```
+          ```
           name: Build and Push Docker Images to ECR
           on:
             push:
@@ -535,8 +535,7 @@ jobs:
                 - name: Push Frontend Docker Image
                   run: |
                     docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION}}.amazonaws.com/frontend:latest         
-          
-               ```
+                     ```
 
 ***Task 8: Continous Deployment***
 - The Github Action has been configured to deploy updates automatically to the AWS ECR whenever there is a push and pullrequest to the 'main' branch of the repo.
@@ -550,96 +549,95 @@ jobs:
 Backend Job with Caching
 
            ```
-    backend:
-    name: Build and Push Backend Docker Image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-docker-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
-      - name: Build Backend Docker Image with cache
-        run: |
-          docker buildx create --use --driver-opt network=host
-          docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache \
-                             --cache-to=type=local,dest=/tmp/.buildx-cache \
-                             -t backend \
-                             -f Backend/Dockerfile \
-                             .
-
-      - name: Tag Backend Docker Image
-        run: |
-          docker tag backend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
-
-      - name: Push Backend Docker Image
-        run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
-
-           ```
+          backend:
+          name: Build and Push Backend Docker Image
+          runs-on: ubuntu-latest
+      
+          steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
+      
+            - name: Set up AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: us-east-2
+      
+            - name: Login to Amazon ECR
+              uses: aws-actions/amazon-ecr-login@v1
+      
+            - name: Cache Docker layers
+              uses: actions/cache@v3
+              with:
+                path: /tmp/.buildx-cache
+                key: ${{ runner.os }}-docker-${{ github.sha }}
+                restore-keys: |
+                  ${{ runner.os }}-docker-
+      
+            - name: Build Backend Docker Image with cache
+              run: |
+                docker buildx create --use --driver-opt network=host
+                docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache \
+                                   --cache-to=type=local,dest=/tmp/.buildx-cache \
+                                   -t backend \
+                                   -f Backend/Dockerfile \
+                                   .
+      
+            - name: Tag Backend Docker Image
+              run: |
+                docker tag backend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
+      
+            - name: Push Backend Docker Image
+              run: |
+                docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
+               ```
 
    Frontend Job with Caching
 
        ```
-      frontend:
-    name: Build and Push Frontend Docker Image
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-docker-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
-      - name: Build Frontend Docker Image with cache
-        run: |
-          docker buildx create --use --driver-opt network=host
-          docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache \
-                             --cache-to=type=local,dest=/tmp/.buildx-cache \
-                             -t frontend \
-                             -f Frontend/Dockerfile \
-                             .
-
-      - name: Tag Frontend Docker Image
-        run: |
-          docker tag frontend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest
-
-      - name: Push Frontend Docker Image
-        run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest      
+          frontend:
+        name: Build and Push Frontend Docker Image
+        runs-on: ubuntu-latest
+    
+        steps:
+          - name: Checkout Code
+            uses: actions/checkout@v3
+    
+          - name: Set up AWS credentials
+            uses: aws-actions/configure-aws-credentials@v1
+            with:
+              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+              aws-region: us-east-2
+    
+          - name: Login to Amazon ECR
+            uses: aws-actions/amazon-ecr-login@v1
+    
+          - name: Cache Docker layers
+            uses: actions/cache@v3
+            with:
+              path: /tmp/.buildx-cache
+              key: ${{ runner.os }}-docker-${{ github.sha }}
+              restore-keys: |
+                ${{ runner.os }}-docker-
+    
+          - name: Build Frontend Docker Image with cache
+            run: |
+              docker buildx create --use --driver-opt network=host
+              docker buildx build --cache-from=type=local,src=/tmp/.buildx-cache \
+                                 --cache-to=type=local,dest=/tmp/.buildx-cache \
+                                 -t frontend \
+                                 -f Frontend/Dockerfile \
+                                 .
+    
+          - name: Tag Frontend Docker Image
+            run: |
+              docker tag frontend:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest
+    
+          - name: Push Frontend Docker Image
+            run: |
+              docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest      
        ```
 
 
