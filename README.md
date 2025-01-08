@@ -347,13 +347,12 @@ jobs:
         EXPOSE 3000
       ```
       
-     - I then updated the main.yaml file of the Github action to build Docker images for frontend and backend and push them to DockerHub.
-     - I added my username and Dockehub security token to 'secrets' and referenced the secrets in the Github action to enable Github login to Dockerhub without hardcoding credentials into the code.
-     - Here is the updated Github action file:
+  - I then updated the main.yaml file of the Github action to build Docker images for frontend and backend and push them to DockerHub.
+  - I added my username and Dockehub security token to 'secrets' and referenced the secrets in the Github action to enable Github login to Dockerhub without hardcoding credentials into the code.
+  - Here is the updated Github action file:
        
-       
-        name: CI/CD Workflow
-
+```       
+    name: CI/CD Workflow
 on:
   push:
     branches:
@@ -453,5 +452,5 @@ jobs:
       - name: Push Frontend Docker image
         run: |
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
-      
+      ```
        
