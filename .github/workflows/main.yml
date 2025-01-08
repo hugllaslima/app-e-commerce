@@ -47,7 +47,7 @@ jobs:
           
       - name: Push Backend Docker image
         run: |
-          docker push username/backend_latest:latest
+          docker push username/backend_latest
 
   frontend:
     name: Frontend CI/CD
@@ -92,4 +92,4 @@ jobs:
           
       - name: Push Frontend Docker image
         run: |
-          docker push username/frontend_latest:latest
+          docker push username/frontend_latest
