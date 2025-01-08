@@ -213,49 +213,7 @@ root.render(
 );
 ```
 - I created a 'public' folder where I added an index.html file for the frontend.
-- Here is the index.html file:
   
-  ```<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A simple static e-commerce store" />
-    <title>Simple E-Commerce Store</title>
-  </head>
-  <body>
-    <header>
-      <h1>Simple E-Commerce Store</h1>
-    </header>
-    <main>
-      <section>
-        <h2>Products</h2>
-        <ul>
-          <li>
-            <h3>Product 1</h3>
-            <p>Price: $20</p>
-            <button>Buy Now</button>
-          </li>
-          <li>
-            <h3>Product 2</h3>
-            <p>Price: $30</p>
-            <button>Buy Now</button>
-          </li>
-          <li>
-            <h3>Product 3</h3>
-            <p>Price: $50</p>
-            <button>Buy Now</button>
-          </li>
-        </ul>
-      </section>
-    </main>
-    <footer>
-      <p>&copy; 2025 Simple E-Commerce Store</p>
-    </footer>
-  </body>
-</html>
-```
-
 ***Task 5: Continuous Integration workflow***
 - I wrote a GitHub Actions workflow for the backend and frontend that:
    - Installed dependencies.
@@ -291,17 +249,13 @@ jobs:
       - name: Install dependencies
         run: |
           cd Backend
-          npm install
+          npm install 
 
       - name: Run tests
         run: |
           cd Backend
           npm test
 
-      - name: Build application
-        run: |
-          cd Backend
-          npm run build
 
   frontend:
     name: Frontend CI/CD
@@ -324,7 +278,7 @@ jobs:
       - name: Run tests
         run: |
           cd Frontend
-          npm test
+          npm test -- --ci --silent
 
       - name: Build application
         run: |
@@ -332,5 +286,166 @@ jobs:
           npm run build
 ```
 - I tested the GitHub actions and ran into some errors.
-- After I used capital letter 'F' to save the directory name for 'Frontend' and I used small letter 'f' for the directory name in the workflow. I made a similar mistake with the Backend too.
-- 
+- After troubleshooting I found out that I used capital letter 'F' to save the directory name for 'Frontend' and I used small letter 'f' for the directory name in the workflow. I made a similar mistake with the Backend too.
+- I fixed the issue and all test ran successfully.
+
+***Task 6: Docker Integration***
+- I created a Dockfile for the Backend and added it to the Backend folder.
+- Here is the Dockerfile for the backend
+        ```
+        # Use Node.js official image
+      FROM node:16
+      
+      # Set the working directory inside the container
+      WORKDIR /app
+      
+      # Copy package.json and package-lock.json to install dependencies
+      COPY Backend/package*.json ./
+      
+      # Install dependencies
+      RUN npm install
+      
+      # Copy the rest of the application code
+      COPY Backend/ .
+      
+      # Expose the port your app will run on
+      EXPOSE 3001
+      
+      # Command to start the app
+      CMD ["npm", "start"]
+        ```
+  - I created another Dockerfile for the Frontend and added it to the frontend folder.
+  - Here is the Dockerfile for the frontend:
+              ```
+              # Use Node.js official image
+        FROM node:16
+        
+        # Set the working directory inside the container
+        WORKDIR /app
+        
+        # Copy package.json and package-lock.json to install dependencies
+        COPY Frontend/package*.json ./
+        
+        # Install dependencies
+        RUN npm install
+        
+        # Copy the rest of the application code
+        COPY Frontend/ .
+        
+        # Build the application
+        RUN npm run build
+        
+        # Serve the application (using a simple web server)
+        RUN npm install -g serve
+        CMD ["serve", "-s", "build", "-l", "3000"]
+        
+        # Expose the port your app will run on
+        EXPOSE 3000
+              ```
+     - I then updated the main.yaml file of the Github action to build Docker images for frontend and backend and push them to DockerHub.
+     - I added my username and Dockehub security token to 'secrets' and refrenced the secrets in the Github action to enable Github login to Dockerhub without hardcoding credentials into the code.
+     - Here is the updated Github action file:
+
+       ```
+       name: CI/CD Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend:
+    name: Backend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd Backend
+          npm install 
+
+      - name: Run tests
+        run: |
+          cd Backend
+          npm test
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Backend Docker image
+        run: |
+          docker build -t backend -f Backend/Dockerfile .
+
+      - name: Tag Docker image for backend
+        run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
+          
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Push Backend Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
+
+  frontend:
+    name: Frontend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd Frontend
+          npm install
+
+      - name: Run tests
+        run: |
+          cd Frontend
+          npm test -- --ci --silent
+
+      - name: Build application
+        run: |
+          cd Frontend
+          npm run build
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Frontend Docker image
+        run: |
+          docker build -t frontend -f Frontend/Dockerfile .
+
+      - name: Tag Docker image for frontend
+        run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Push Frontend Docker image
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
+       ```
+       
