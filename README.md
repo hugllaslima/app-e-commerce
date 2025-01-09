@@ -468,7 +468,6 @@ jobs:
 
 
 ```
-
 name: Build and Push Docker Images to ECR
 on:
   push:
@@ -554,7 +553,7 @@ jobs:
 
 Backend Job with Caching
 
-           ```
+  ```
           backend:
           name: Build and Push Backend Docker Image
           runs-on: ubuntu-latest
@@ -597,11 +596,11 @@ Backend Job with Caching
             - name: Push Backend Docker Image
               run: |
                 docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend:latest
-               ```
+  ```
 
    Frontend Job with Caching
 
-       ```
+  ```
           frontend:
         name: Build and Push Frontend Docker Image
         runs-on: ubuntu-latest
@@ -644,7 +643,7 @@ Backend Job with Caching
           - name: Push Frontend Docker Image
             run: |
               docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend:latest      
-       ```
+    ```
 
 
 ***Task 10: Project Documentation***
