@@ -466,7 +466,7 @@ jobs:
 - I modified the Githhub action file to use the Dockerfile to build a container and push it to AWS ECR.
 - Here is the updated Github Action:
 
-          ```
+ ```
           name: Build and Push Docker Images to ECR
           on:
             push:
@@ -535,7 +535,9 @@ jobs:
                 - name: Push Frontend Docker Image
                   run: |
                     docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION}}.amazonaws.com/frontend:latest         
-                     ```
+      ```
+
+         
 
 ***Task 8: Continous Deployment***
 
