@@ -4,7 +4,7 @@ I am tasked with developing and maintaining an e-commerce platform. This platfor
 1. E-Commerce API: Backend service handling product listings, user accounts, and order processing.
 2. E-Commerce Frontend: A Web application for users to browse products, manage their accounts, and place orders.
 
-The goal is to automate the integration and deployment process for both components using Github Actions, ensuring continous delivery and integration.
+This capstone project aims to provide hands-on experience in automating CI/CD pipelines for a real-world e-commerce application, encompassing aspects like backend API management, frontend web development, Docker containerization, and cloud deployment.
 
 Project Tasks:
 
