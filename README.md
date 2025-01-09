@@ -4,7 +4,7 @@ I am tasked with developing and maintaining an e-commerce platform. This platfor
 1. E-Commerce API: Backend service handling product listings, user accounts, and order processing.
 2. E-Commerce Frontend: A Web application for users to browse products, manage their accounts, and place orders.
 
-This capstone project aims to provide hands-on experience in automating CI/CD pipelines for a real-world e-commerce application, encompassing aspects like backend API management, frontend web development, Docker containerization, and cloud deployment.
+The goal is to automate the integration and deployment process for both components using Github Actions, ensuring continous delivery and integration.
 
 Project Tasks:
 
@@ -353,109 +353,109 @@ jobs:
   - Here is the updated Github action file:
        
 ```       
-name: CI/CD Workflow
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  backend:
-    name: Backend CI/CD
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: |
-          cd Backend
-          npm install 
-
-      - name: Run tests
-        run: |
-          cd Backend
-          npm test
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Backend Docker image
-        run: |
-          docker build -t backend -f Backend/Dockerfile .
-
-      - name: Tag Docker image for backend
-        run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
-          
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          
-      - name: Push Backend Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
-
-  frontend:
-    name: Frontend CI/CD
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: |
-          cd Frontend
-          npm install
-
-      - name: Run tests
-        run: |
-          cd Frontend
-          npm test -- --ci --silent
-
-      - name: Build application
-        run: |
-          cd Frontend
-          npm run build
-
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Frontend Docker image
-        run: |
-          docker build -t frontend -f Frontend/Dockerfile .
-
-      - name: Tag Docker image for frontend
-        run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-          
-      - name: Push Frontend Docker image
-        run: |
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
+      name: CI/CD Workflow
+      on:
+        push:
+          branches:
+            - main
+        pull_request:
+          branches:
+            - main
+      
+      jobs:
+        backend:
+          name: Backend CI/CD
+          runs-on: ubuntu-latest
+      
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+      
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+      
+            - name: Install dependencies
+              run: |
+                cd Backend
+                npm install 
+      
+            - name: Run tests
+              run: |
+                cd Backend
+                npm test
+      
+            - name: Setup Docker Buildx
+              uses: docker/setup-buildx-action@v2
+      
+            - name: Build Backend Docker image
+              run: |
+                docker build -t backend -f Backend/Dockerfile .
+      
+            - name: Tag Docker image for backend
+              run: docker tag backend ${{ secrets.DOCKER_HUB_USERNAME }}/backend
+                
+            - name: Login to Docker Hub
+              uses: docker/login-action@v2
+              with:
+                username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+                
+            - name: Push Backend Docker image
+              run: |
+                docker push ${{ secrets.DOCKER_HUB_USERNAME }}/backend
+      
+        frontend:
+          name: Frontend CI/CD
+          runs-on: ubuntu-latest
+      
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+      
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                node-version: '16'
+      
+            - name: Install dependencies
+              run: |
+                cd Frontend
+                npm install
+      
+            - name: Run tests
+              run: |
+                cd Frontend
+                npm test -- --ci --silent
+      
+            - name: Build application
+              run: |
+                cd Frontend
+                npm run build
+      
+            - name: Setup Docker Buildx
+              uses: docker/setup-buildx-action@v2
+      
+            - name: Build Frontend Docker image
+              run: |
+                docker build -t frontend -f Frontend/Dockerfile .
+      
+            - name: Tag Docker image for frontend
+              run: docker tag frontend ${{ secrets.DOCKER_HUB_USERNAME }}/frontend    
+      
+            - name: Login to Docker Hub
+              uses: docker/login-action@v2
+              with:
+                username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+                
+            - name: Push Frontend Docker image
+              run: |
+                docker push ${{ secrets.DOCKER_HUB_USERNAME }}/frontend
       ```
 
-***Task 7: Deploy to Cloud***
+***Task 7: Deploy to Cloud*** 
 
 - I want to now deploy the containers built from the Github actions to AWS cloud.
 - To do this I logged in to my AWS account an IAM user with the permissions for ECR, ECS, and Cloud Formation.
