@@ -1,75 +1,45 @@
-Pipeline CI/CD para Aplicação de E-commerce
+# Pipeline CI/CD para E-commerce
 
-Este projeto implementa um pipeline CI/CD para uma aplicação de e-commerce, com backend em Node.js e frontend em React. O objetivo é automatizar o build, teste e deploy de uma loja online, garantindo que mudanças no código (como novos produtos ou correções no carrinho) sejam implantadas rapidamente na AWS.
+Este projeto automatiza o build, teste e deploy de uma loja online com backend em Node.js e frontend em React, usando GitHub Actions e AWS.
 
-Finalidade
+## Finalidade
 
-A aplicação é um site de e-commerce funcional que permite:
+A aplicação é um site de e-commerce que permite:
 
+- Navegar por produtos
+- Criar contas e fazer login
+- Adicionar itens ao carrinho e realizar pedidos
 
+O pipeline CI/CD garante que mudanças no código sejam implantadas rapidamente no AWS ECS, mantendo a loja sempre atualizada.
 
+## Pré-requisitos
 
+- Conta no GitHub
+- Conta na AWS (permissões para ECR e ECS)
+- Node.js v16+ e Docker instalados localmente
 
-Navegar por produtos.
+## Configuração Local
 
+Clone e teste o backend:
 
-
-Criar contas e fazer login.
-
-
-
-Adicionar itens ao carrinho e realizar pedidos.
-
-O pipeline usa GitHub Actions para construir/testar a aplicação, criar imagens Docker e implantá-las no AWS ECS, mantendo a loja online atualizada.
-
-Pré-requisitos
-
-
-
-
-
-Conta no GitHub com acesso ao repositório.
-
-
-
-Conta na AWS com permissões para ECR e ECS.
-
-
-
-Node.js v16 ou superior e Docker instalados localmente.
-
-Configuração Local
-
-Clone o repositório e teste o backend:
-
+```bash
 git clone https://github.com/igorpaiva26/E-Commerce-Application-CI-CD-Pipeline.git
 cd E-Commerce-Application-CI-CD-Pipeline
 cd Backend
 npm install
 npm test
+```
 
-Estrutura do Projeto
+## Estrutura do Projeto
 
+- `Backend/`: API Node.js (produtos, autenticação, pedidos)
+- `Frontend/`: Interface React da loja
+- `.github/workflows/`: Workflows do GitHub Actions
+- `Dockerfile`: Configurações Docker (Backend e Frontend)
 
+## Exemplo de Código (Backend)
 
-
-
-Backend/: API Node.js para produtos, autenticação e pedidos.
-
-
-
-Frontend/: Interface React para a loja online.
-
-
-
-.github/workflows/: Workflows do GitHub Actions para CI/CD.
-
-
-
-Dockerfile (Backend e Frontend): Configurações para imagens Docker.
-
-Exemplo de Código (Backend)
-
+```javascript
 const express = require('express');
 const app = express();
 
@@ -85,31 +55,15 @@ if (require.main === module) {
     console.log(`Backend server is running on http://localhost:${PORT}`);
   });
 }
+```
 
-Como o Pipeline Funciona
+## Como Funciona o Pipeline
 
+- **CI**: GitHub Actions executa testes e constrói imagens Docker a cada push no `main`
+- **CD**: Imagens são enviadas ao AWS ECR e implantadas no AWS ECS
 
+## Próximos Passos
 
-
-
-CI: GitHub Actions executa testes e constrói imagens Docker a cada push no branch main.
-
-
-
-CD: Imagens são enviadas ao AWS ECR e implantadas no AWS ECS, atualizando a loja online automaticamente.
-
-Próximos Passos
-
-
-
-
-
-Configurar secrets no GitHub para AWS e DockerHub.
-
-
-
-Testar frontend localmente.
-
-
-
-Configurar cluster ECS na AWS para deploy.
+- Configurar secrets no GitHub (AWS e DockerHub)
+- Testar o frontend localmente
+- Configurar cluster ECS na AWS
