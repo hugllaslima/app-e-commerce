@@ -81,6 +81,11 @@ app.post('/api/orders', (req, res) => {
   }
 });
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
+});
+
 // Export the app for testing
 module.exports = app;
 
@@ -92,7 +97,4 @@ if (require.main === module) {
   });
 }
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
