@@ -8,7 +8,7 @@ const HeroSection: FC = () => {
         <div className="flex items-center">
           <div className="max-w-[450px] space-y-4">
             <p className="text-black dark:text-white">
-              Starting At <span className="font-bold">$999</span>
+              A partir de <span className="font-bold">R$ 799</span>
             </p>
             <h2 className="text-black font-bold text-4xl md:text-5xl dark:text-white">
               E-Commerce com CI/CD Automatizado
