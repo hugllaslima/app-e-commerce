@@ -7,16 +7,16 @@ FROM node:18-alpine as build
 WORKDIR /app
 
 # Copy package files
-COPY package.json package-lock.json ./
+COPY frontend/package.json frontend/package-lock.json ./
 
 # Install dependencies
-RUN yarn install --frozen-lockfile
+RUN npm install
 
 # Copy source code
-COPY . .
+COPY frontend/ .
 
 # Build the application
-RUN yarn build
+RUN npm run build
 
 # Stage 2: Production server
 FROM nginx:alpine
@@ -35,12 +35,6 @@ RUN echo 'server { \
         try_files $uri $uri/ /index.html; \
     } \
     \
-    # Handle API requests (if needed) \
-    # location /api { \
-    #     proxy_pass http://backend:3001; \
-    # } \
-    \
-    # Gzip compression \
     gzip on; \
     gzip_vary on; \
     gzip_min_length 1024; \
