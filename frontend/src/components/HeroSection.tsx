@@ -20,7 +20,7 @@ const HeroSection: FC = () => {
             <Link
               to="/product/6"
               data-test="hero-btn"
-              className="inline-block bg-white rounded-md px-6 py-3 hover:bg-blue-500 hover:text-white"
+              className="inline-block bg-white rounded-md px-6 py-3 hover:bg-green-500 hover:text-white"
             >
               Shop Now
             </Link>
