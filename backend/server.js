@@ -91,3 +91,8 @@ if (require.main === module) {
     console.log(`Backend server is running on http://localhost:${PORT}`);
   });
 }
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
