@@ -15,12 +15,12 @@ app.use((req, res, next) => {
 });
 
 // Define the root route
-app.get('/', (req, res) => {
+app..get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to the API!' });
 });
 
 // Products endpoint
-app.get('/api/products', (req, res) => {
+app..get('/api/products', (req, res) => {
   res.status(200).json({
     products: [
       { 
@@ -81,7 +81,7 @@ app.post('/api/orders', (req, res) => {
 });
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+app..get("/health", (req, res) => {
   res.status(200).json({ status: "healthy", timestamp: new Date().toISOString() });
 });
 
