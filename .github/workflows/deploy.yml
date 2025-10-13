@@ -45,10 +45,22 @@ jobs:
       - name: Test Docker Image (Health Check)
         run: |
           docker run -d --name backend-test -p 3001:3001 backend
-          sleep 10
-          curl -f http://localhost:3001/health || exit 1
+          echo "Aguardando container iniciar..."
+          for i in {1..30}; do
+            if curl -f http://localhost:3001/health; then
+              echo "Health check passou!"
+              docker stop backend-test
+              docker rm backend-test
+              exit 0
+            fi
+            echo "Tentativa $i/30 falhou, aguardando..."
+            sleep 2
+          done
+          echo "Health check falhou após 30 tentativas"
+          docker logs backend-test
           docker stop backend-test
           docker rm backend-test
+          exit 1
 
       - name: Push to ECR
         env:
@@ -93,10 +105,22 @@ jobs:
       - name: Test Docker Image (Health Check)
         run: |
           docker run -d --name frontend-test -p 80:80 frontend
-          sleep 5
-          curl -f http://localhost:80 || exit 1
+          echo "Aguardando container iniciar..."
+          for i in {1..15}; do
+            if curl -f http://localhost:80; then
+              echo "Health check passou!"
+              docker stop frontend-test
+              docker rm frontend-test
+              exit 0
+            fi
+            echo "Tentativa $i/15 falhou, aguardando..."
+            sleep 2
+          done
+          echo "Health check falhou após 15 tentativas"
+          docker logs frontend-test
           docker stop frontend-test
           docker rm frontend-test
+          exit 1
 
       - name: Push to ECR
         env:
