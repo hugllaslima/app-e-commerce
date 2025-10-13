@@ -14,7 +14,7 @@ const HeroSection: FC = () => {
               E-Commerce com CI/CD Automatizado
             </h2>
             <h3 className="text-2xl dark:text-white">
-              Exclusive offer <span className="text-red-600">-10%</span> off
+              Exclusive offer <span className="text-red-600">-50% OFF</span> off
               this week
             </h3>
             <Link
