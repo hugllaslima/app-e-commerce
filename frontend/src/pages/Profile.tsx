@@ -42,7 +42,7 @@ const Profile: FC = () => {
       firstName: "Igor",
       lastName: "Aurelio Cunha Paiva",
       maidenName: "",
-      age: "",
+      age: 0,
       gender: "",
       email: "igoraureliocunha@gmail.com",
       phone: "",
