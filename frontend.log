@@ -1,0 +1,68 @@
+
+> social-site-demo@0.0.0 dev
+> vite
+
+Re-optimizing dependencies because vite config has changed
+
+  VITE v5.0.12  ready in 273 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+11:43:40 AM [vite] changed tsconfig file detected: /home/igor/e-Commerce-Pipeline/Frontend/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+11:43:40 AM [vite] changed tsconfig file detected: /home/igor/e-Commerce-Pipeline/Frontend/cypress/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+11:43:40 AM [vite] page reload tailwind.config.js
+11:43:40 AM [vite] hmr update /src/App.css
+11:43:40 AM [vite] hmr update /src/App.tsx, /src/index.css
+11:43:40 AM [vite] hmr update /src/index.css
+11:43:40 AM [vite] page reload src/main.tsx
+11:43:40 AM [vite] page reload src/vite-env.d.ts
+11:43:40 AM [vite] hmr update /src/components/Banner.tsx
+11:43:40 AM [vite] hmr update /src/components/BannerPopup.tsx
+11:43:40 AM [vite] hmr update /src/components/Cart.tsx
+11:43:40 AM [vite] hmr update /src/components/CartRow.tsx
+11:43:40 AM [vite] hmr update /src/components/CustomPopup.tsx
+11:43:40 AM [vite] hmr update /src/components/FeatureCard.tsx
+11:43:40 AM [vite] hmr update /src/components/Features.tsx
+11:43:40 AM [vite] hmr update /src/components/Footer.tsx
+11:43:40 AM [vite] hmr update /src/components/HeroSection.tsx
+11:43:40 AM [vite] hmr update /src/components/LatestProducts.tsx
+11:43:40 AM [vite] hmr update /src/components/LoginModal.tsx
+11:43:40 AM [vite] hmr update /src/components/Navbar.tsx
+11:43:40 AM [vite] hmr update /src/components/PriceSection.tsx
+11:43:40 AM [vite] hmr update /src/components/ProductCard.tsx
+11:43:40 AM [vite] hmr update /src/components/ProductList.tsx
+11:43:40 AM [vite] hmr update /src/components/ProtectedRoute.tsx
+11:43:40 AM [vite] hmr update /src/components/RatingStar.tsx
+11:43:40 AM [vite] hmr update /src/components/Reviews.tsx
+11:43:40 AM [vite] hmr update /src/components/ScrollToTopButton.tsx
+11:43:40 AM [vite] hmr update /src/components/TrendingProducts.tsx
+11:43:40 AM [vite] hmr update /src/pages/SingleProduct.tsx
+11:43:40 AM [vite] page reload src/hooks/useDiscount.ts
+11:43:40 AM [vite] page reload src/models/AuthSlice.ts
+11:43:40 AM [vite] page reload src/models/CartItem.ts
+11:43:40 AM [vite] page reload src/models/CartSlice.ts
+11:43:40 AM [vite] page reload src/models/Category.ts
+11:43:40 AM [vite] page reload src/models/FeatureItem.ts
+11:43:40 AM [vite] page reload src/models/HomeSlice.ts
+11:43:40 AM [vite] page reload src/models/Product.ts
+11:43:40 AM [vite] page reload src/models/ProductSlice.ts
+11:43:40 AM [vite] page reload src/models/ReviewItem.ts
+11:43:40 AM [vite] hmr update /src/pages/AllCategories.tsx
+11:43:40 AM [vite] hmr update /src/pages/AllProducts.tsx
+11:43:40 AM [vite] hmr update /src/pages/Home.tsx
+11:43:40 AM [vite] hmr update /src/pages/Profile.tsx
+11:43:40 AM [vite] hmr update /src/pages/SingleCategory.tsx
+11:43:40 AM [vite] hmr update /src/pages/SingleProduct.tsx
+11:43:40 AM [vite] hmr update /src/pages/Wishlist.tsx
+11:43:40 AM [vite] page reload src/redux/hooks.ts
+11:43:40 AM [vite] page reload src/redux/store.ts
+11:43:40 AM [vite] page reload src/redux/features/authSlice.ts
+11:43:40 AM [vite] page reload src/redux/features/cartSlice.ts
+11:43:40 AM [vite] page reload src/redux/features/homeSlice.ts
+11:43:40 AM [vite] page reload src/redux/features/productSlice.ts
+11:43:40 AM [vite] vite.config.ts changed, restarting server...
+(!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+11:43:40 AM [vite] server restarted.
