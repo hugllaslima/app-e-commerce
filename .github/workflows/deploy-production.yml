@@ -1,9 +1,8 @@
-name: Deploy to AWS ECS
+name: (CI/CD) Deploy Ambiente de Produção
 
 on:
-  push:
+  pull_request:
     branches: [ main ]
-  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
